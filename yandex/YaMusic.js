@@ -22,12 +22,16 @@
 
     let firstMusicPanel = document.querySelector(".head");
 
-    let firstPanelGeometry = firstMusicPanel.getBoundingClientRect();
+    if (firstMusicPanel.previousSibling) {
+        firstMusicPanel.previousSibling.remove();
+    }
+
+    /*let firstPanelGeometry = firstMusicPanel.getBoundingClientRect();
 
     if (firstPanelGeometry.top > 0) {
         console.log(firstMusicPanel.previousSibling);
         firstMusicPanel.previousSibling.remove();
-    }
+    }*/
 
     // Теперь реклама сбоку
 
@@ -42,7 +46,6 @@
 
     /*
     var config = { attributes: true, childList: true, subtree: true };
-
     var callback = function(mutationsList, observer) {
         console.log("startModify");
         for (let i = 0; i < sideBar.children.length; i++) {
@@ -52,9 +55,7 @@
         }
     }
     };
-
     var observer = new MutationObserver(callback);
-
     observer.observe(sideBar, config);
     */
 
@@ -64,25 +65,20 @@
 
     /*function findFrames () {
         var frameList = document.querySelectorAll("iframe");
-
         console.log(frameList);
-
         for (let i = 0; i < frameList.length; i++) {
             if (frameList[i].style.display == "none") {
                 continue;
             }
-
             frameList[i].style.display = "none";
         }
     }
-
-
     setInterval(findFrames, 1000);
     */
 
 
 
-    
+
 
 
     // Your code here...
