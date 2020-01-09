@@ -5,6 +5,7 @@
 // @description  try to take over the world!
 // @author       You
 // @match        https://music.yandex.ru/radio
+// @match        https://music.yandex.ru/*
 // @grant        none
 // ==/UserScript==
 
@@ -19,11 +20,36 @@
         return false;
     }
 
+    let frameList = document.querySelectorAll("iframe");
+for (let i = 0; i < frameList.length; i++) {
+	frameList[i].remove();
+}
 
+    /**
+    * Окошко с рекламой
+    */
     let firstMusicPanel = document.querySelector(".head");
 
-    if (firstMusicPanel.previousSibling) {
+    if (firstMusicPanel && firstMusicPanel.previousSibling) {
         firstMusicPanel.previousSibling.remove();
+    }
+
+    /**
+    * Окошко с рекламой
+    */
+    let canvasWrapper = document.querySelector(".page-root");
+
+    if (canvasWrapper) {
+        let children = canvasWrapper.children;
+        for (let i = 0; i < children.length; i++) {
+            if (!children[i].classList.contains("head")) {
+                console.log("removed " + children[i].className);
+                //children[i].remove();
+                children[i].style.marginTop = "-250px";
+            } else {
+                break;
+            }
+        }
     }
 
     /*let firstPanelGeometry = firstMusicPanel.getBoundingClientRect();
@@ -38,10 +64,12 @@
     let sideBar = document.querySelector(".sidebar");
     console.log(sideBar);
 
-    for (let i = 0; i < sideBar.children.length; i++) {
+    if (sideBar) {
+        for (let i = 0; i < sideBar.children.length; i++) {
         //if (hasFrame(sideBar.children[i])) {
-            sideBar.children[i].style.display = "none";
+        sideBar.children[i].style.display = "none";
         //}
+        }
     }
 
     /*
