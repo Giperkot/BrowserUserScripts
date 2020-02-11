@@ -72,42 +72,34 @@ for (let i = 0; i < frameList.length; i++) {
         }
     }
 
-    /*
-    var config = { attributes: true, childList: true, subtree: true };
-    var callback = function(mutationsList, observer) {
-        console.log("startModify");
-        for (let i = 0; i < sideBar.children.length; i++) {
-        if (hasFrame(sideBar.children[i])) {
-            console.log("findFrame");
-            sideBar.children[i].style.display = "none";
+    // Важно проверить чтобы не вылезало окно, после первой песни.
+
+    setInterval(function () {
+        let popupList = document.querySelectorAll(".crackdown-popup");
+
+        if (popupList.length < 1) {
+            return;
         }
-    }
-    };
-    var observer = new MutationObserver(callback);
-    observer.observe(sideBar, config);
-    */
 
+        console.log("Найдено всплывающее окно.. Пробую закрыть.");
+        let isWindowClosed = false;
 
-    //console.log(firstMusicPanel.getBoundingClientRect());
+        for (let i = 0; i < popupList.length; i++) {
+            let popupWindow = popupList[i];
 
-
-    /*function findFrames () {
-        var frameList = document.querySelectorAll("iframe");
-        console.log(frameList);
-        for (let i = 0; i < frameList.length; i++) {
-            if (frameList[i].style.display == "none") {
+            if (popupWindow.getBoundingClientRect && popupWindow.getBoundingClientRect().width < 1) {
                 continue;
             }
-            frameList[i].style.display = "none";
+
+            // закрыть.
+            isWindowClosed = true;
+            popupWindow.querySelector(".d-button").click();
         }
-    }
-    setInterval(findFrames, 1000);
-    */
 
-
-
-
-
-
-    // Your code here...
+        if (!isWindowClosed) {
+            return;
+        }
+        // Запустати музыку...
+        document.querySelector(".player-controls__btn.deco-player-controls__button.player-controls__btn_play").click();
+    }, 10000);
 })();
