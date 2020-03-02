@@ -21,13 +21,13 @@
     }
 
     let frameList = document.querySelectorAll("iframe");
-for (let i = 0; i < frameList.length; i++) {
-	frameList[i].remove();
-}
+    for (let i = 0; i < frameList.length; i++) {
+        frameList[i].remove();
+    }
 
     /**
-    * Окошко с рекламой
-    */
+     * Окошко с рекламой
+     */
     let firstMusicPanel = document.querySelector(".head");
 
     if (firstMusicPanel && firstMusicPanel.previousSibling) {
@@ -35,8 +35,8 @@ for (let i = 0; i < frameList.length; i++) {
     }
 
     /**
-    * Окошко с рекламой
-    */
+     * Окошко с рекламой
+     */
     let canvasWrapper = document.querySelector(".page-root");
 
     if (canvasWrapper) {
@@ -66,48 +66,40 @@ for (let i = 0; i < frameList.length; i++) {
 
     if (sideBar) {
         for (let i = 0; i < sideBar.children.length; i++) {
-        //if (hasFrame(sideBar.children[i])) {
-        sideBar.children[i].style.display = "none";
-        //}
-        }
-    }
-
-    /*
-    var config = { attributes: true, childList: true, subtree: true };
-    var callback = function(mutationsList, observer) {
-        console.log("startModify");
-        for (let i = 0; i < sideBar.children.length; i++) {
-        if (hasFrame(sideBar.children[i])) {
-            console.log("findFrame");
+            //if (hasFrame(sideBar.children[i])) {
             sideBar.children[i].style.display = "none";
+            //}
         }
     }
-    };
-    var observer = new MutationObserver(callback);
-    observer.observe(sideBar, config);
-    */
 
+    // Важно проверить чтобы не вылезало окно, после первой песни.
 
-    //console.log(firstMusicPanel.getBoundingClientRect());
+    setInterval(function () {
+        let popupList = document.querySelectorAll(".crackdown-popup");
 
+        if (popupList.length < 1) {
+            return;
+        }
 
-    /*function findFrames () {
-        var frameList = document.querySelectorAll("iframe");
-        console.log(frameList);
-        for (let i = 0; i < frameList.length; i++) {
-            if (frameList[i].style.display == "none") {
+        console.log("Найдено всплывающее окно.. Пробую закрыть.");
+        let isWindowClosed = false;
+
+        for (let i = 0; i < popupList.length; i++) {
+            let popupWindow = popupList[i];
+
+            if (popupWindow.getBoundingClientRect && popupWindow.getBoundingClientRect().width < 1) {
                 continue;
             }
-            frameList[i].style.display = "none";
+
+            // закрыть.
+            isWindowClosed = true;
+            popupWindow.querySelector(".d-button").click();
         }
-    }
-    setInterval(findFrames, 1000);
-    */
 
-
-
-
-
-
-    // Your code here...
+        if (!isWindowClosed) {
+            return;
+        }
+        // Запустати музыку...
+        document.querySelector(".player-controls__btn.deco-player-controls__button.player-controls__btn_play").click();
+    }, 10000);
 })();
