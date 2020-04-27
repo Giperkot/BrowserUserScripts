@@ -21,13 +21,13 @@
     }
 
     let frameList = document.querySelectorAll("iframe");
-for (let i = 0; i < frameList.length; i++) {
-	frameList[i].remove();
-}
+    for (let i = 0; i < frameList.length; i++) {
+        frameList[i].remove();
+    }
 
     /**
-    * Окошко с рекламой
-    */
+     * Окошко с рекламой
+     */
     let firstMusicPanel = document.querySelector(".head");
 
     if (firstMusicPanel && firstMusicPanel.previousSibling) {
@@ -35,8 +35,8 @@ for (let i = 0; i < frameList.length; i++) {
     }
 
     /**
-    * Окошко с рекламой
-    */
+     * Окошко с рекламой
+     */
     let canvasWrapper = document.querySelector(".page-root");
 
     if (canvasWrapper) {
@@ -66,9 +66,9 @@ for (let i = 0; i < frameList.length; i++) {
 
     if (sideBar) {
         for (let i = 0; i < sideBar.children.length; i++) {
-        //if (hasFrame(sideBar.children[i])) {
-        sideBar.children[i].style.display = "none";
-        //}
+		  //if (hasFrame(sideBar.children[i])) {
+            sideBar.children[i].style.display = "none";
+            //}
         }
     }
 
@@ -76,7 +76,6 @@ for (let i = 0; i < frameList.length; i++) {
 
     setInterval(function () {
         let popupList = document.querySelectorAll(".crackdown-popup");
-
         if (popupList.length < 1) {
             return;
         }
